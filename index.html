@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Data Karyawan</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Library SheetJS untuk baca & tulis file Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">👥</span>
+        <span class="logo-text">Data Karyawan</span>
+      </div>
+      <p class="header-sub">Sistem Manajemen Karyawan Sederhana</p>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTAINER ===================== -->
+  <main class="container">
+
+    <!-- ===== TAB NAVIGASI ===== -->
+    <div class="tabs">
+      <button class="tab active" onclick="bukaTab('input', this)">
+        ➕ Input Data
+      </button>
+      <button class="tab" onclick="bukaTab('daftar', this)">
+        📋 Daftar Karyawan
+      </button>
+      <button class="tab" onclick="bukaTab('statistik', this)">
+        📊 Statistik
+      </button>
+    </div>
+
+    <!-- ==================== TAB 1: INPUT DATA ==================== -->
+    <div id="tab-input" class="tab-content aktif">
+
+      <div class="card">
+        <h2 class="card-title">
+          <!-- Judul berubah saat mode edit -->
+          <span id="judul-form">➕ Tambah Karyawan Baru</span>
+        </h2>
+
+        <!-- FORM INPUT -->
+        <form id="form-karyawan" onsubmit="simpanData(event)">
+
+          <!-- BAGIAN 1: DATA PRIBADI -->
+          <div class="form-section">
+            <h3 class="section-label">Data Pribadi</h3>
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="nik">NIK Karyawan <span class="wajib">*</span></label>
+                <input type="text" id="nik" placeholder="Contoh: EMP-001" required>
+                <small class="hint">Nomor identitas unik karyawan</small>
+              </div>
+
+              <div class="form-group">
+                <label for="nama">Nama Lengkap <span class="wajib">*</span></label>
+                <input type="text" id="nama" placeholder="Nama lengkap karyawan" required>
+              </div>
+
+              <div class="form-group">
+                <label for="jenis-kelamin">Jenis Kelamin</label>
+                <select id="jenis-kelamin">
+                  <option value="">-- Pilih --</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="tanggal-lahir">Tanggal Lahir</label>
+                <input type="date" id="tanggal-lahir">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="email@perusahaan.com">
+              </div>
+
+              <div class="form-group">
+                <label for="telepon">No. Telepon</label>
+                <input type="text" id="telepon" placeholder="08xx-xxxx-xxxx">
+              </div>
+
+              <div class="form-group full-width">
+                <label for="alamat">Alamat</label>
+                <textarea id="alamat" rows="2" placeholder="Alamat lengkap tempat tinggal"></textarea>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- BAGIAN 2: DATA PEKERJAAN -->
+          <div class="form-section">
+            <h3 class="section-label">Data Pekerjaan</h3>
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="divisi">Divisi <span class="wajib">*</span></label>
+                <select id="divisi" required>
+                  <option value="">-- Pilih Divisi --</option>
+                  <option value="Teknologi">Teknologi</option>
+                  <option value="Keuangan">Keuangan</option>
+                  <option value="HRD">HRD</option>
+                  <option value="Pemasaran">Pemasaran</option>
+                  <option value="Operasional">Operasional</option>
+                  <option value="Legal">Legal</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="jabatan">Jabatan <span class="wajib">*</span></label>
+                <input type="text" id="jabatan" placeholder="Contoh: Staff, Manager" required>
+              </div>
+
+              <div class="form-group">
+                <label for="tanggal-masuk">Tanggal Masuk</label>
+                <input type="date" id="tanggal-masuk">
+              </div>
+
+              <div class="form-group">
+                <label for="status">Status Karyawan</label>
+                <select id="status">
+                  <option value="Aktif">Aktif</option>
+                  <option value="Non-aktif">Non-aktif</option>
+                  <option value="Cuti">Cuti</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="gaji">Gaji Pokok (Rp)</label>
+                <input type="number" id="gaji" placeholder="Contoh: 8000000" min="0">
+              </div>
+
+              <div class="form-group">
+                <label for="pendidikan">Pendidikan Terakhir</label>
+                <select id="pendidikan">
+                  <option value="">-- Pilih --</option>
+                  <option value="SMA/SMK">SMA/SMK</option>
+                  <option value="D3">D3</option>
+                  <option value="S1">S1</option>
+                  <option value="S2">S2</option>
+                  <option value="S3">S3</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- TOMBOL AKSI FORM -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-simpan" id="btn-simpan">
+              💾 Simpan Data
+            </button>
+            <button type="button" class="btn btn-batal" onclick="resetForm()">
+              🔄 Reset
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div><!-- end tab-input -->
+
+
+    <!-- ==================== TAB 2: DAFTAR KARYAWAN ==================== -->
+    <div id="tab-daftar" class="tab-content">
+
+      <!-- Baris pencarian & filter -->
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="input-cari"
+            placeholder="Cari nama atau NIK..."
+            oninput="filterData()"
+          >
+        </div>
+        <div class="filter-group">
+          <select id="filter-divisi" onchange="filterData()">
+            <option value="">Semua Divisi</option>
+            <option value="Teknologi">Teknologi</option>
+            <option value="Keuangan">Keuangan</option>
+            <option value="HRD">HRD</option>
+            <option value="Pemasaran">Pemasaran</option>
+            <option value="Operasional">Operasional</option>
+            <option value="Legal">Legal</option>
+          </select>
+          <select id="filter-status" onchange="filterData()">
+            <option value="">Semua Status</option>
+            <option value="Aktif">Aktif</option>
+            <option value="Non-aktif">Non-aktif</option>
+            <option value="Cuti">Cuti</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tombol Export & Import Excel -->
+      <div class="excel-actions">
+        <button class="btn btn-export" onclick="exportExcel()">
+          📥 Export ke Excel
+        </button>
+        <label class="btn btn-import" title="Pilih file .xlsx untuk diimpor">
+          📤 Import dari Excel
+          <!-- Input file tersembunyi, dipicu oleh label di atas -->
+          <input type="file" accept=".xlsx,.xls" onchange="importExcel(event)" style="display:none;">
+        </label>
+        <span class="excel-hint">Format: kolom sesuai hasil export</span>
+      </div>
+
+      <!-- Info jumlah data -->
+      <p id="info-jumlah" class="info-jumlah"></p>
+
+      <!-- Tabel data -->
+      <div class="tabel-wrapper">
+        <table class="tabel-karyawan" id="tabel-karyawan">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>NIK</th>
+              <th>Nama</th>
+              <th>Divisi</th>
+              <th>Jabatan</th>
+              <th>Status</th>
+              <th>Gaji Pokok</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-karyawan">
+            <!-- Data diisi oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tampilan kalau data kosong -->
+      <div id="data-kosong" class="data-kosong" style="display:none;">
+        <p>😕 Tidak ada data yang ditemukan.</p>
+        <small>Coba ubah kata pencarian atau filter.</small>
+      </div>
+
+    </div><!-- end tab-daftar -->
+
+
+    <!-- ==================== TAB 3: STATISTIK ==================== -->
+    <div id="tab-statistik" class="tab-content">
+
+      <!-- Kartu ringkasan angka -->
+      <div class="statistik-grid" id="statistik-grid">
+        <!-- Diisi JavaScript -->
+      </div>
+
+      <!-- Grafik divisi -->
+      <div class="card" style="margin-top: 1.5rem;">
+        <h3 class="card-title">📊 Jumlah Karyawan per Divisi</h3>
+        <div id="grafik-divisi"></div>
+      </div>
+
+      <!-- Grafik status -->
+      <div class="card" style="margin-top: 1rem;">
+        <h3 class="card-title">📈 Distribusi Status Karyawan</h3>
+        <div id="grafik-status"></div>
+      </div>
+
+    </div><!-- end tab-statistik -->
+
+  </main><!-- end container -->
+
+  <!-- ===== NOTIFIKASI TOAST ===== -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ===== MODAL KONFIRMASI HAPUS ===== -->
+  <div id="modal-hapus" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <h3>🗑️ Konfirmasi Hapus</h3>
+      <p id="modal-pesan">Yakin ingin menghapus data ini?</p>
+      <div class="modal-actions">
+        <button class="btn btn-hapus" onclick="konfirmasiHapus()">Ya, Hapus</button>
+        <button class="btn btn-batal" onclick="tutupModal()">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Muat file JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>

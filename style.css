@@ -1,0 +1,641 @@
+/* =====================================================
+   STYLE.CSS — Aplikasi Data Karyawan
+   Dibuat dengan CSS murni, tanpa framework
+   ===================================================== */
+
+/* ===== RESET & DASAR ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ukuran elemen sudah termasuk padding & border */
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(135deg, #1e3a5f, #2d6a9f);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 28px;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-sub {
+  font-size: 13px;
+  color: #b0d0f0;
+  margin-top: 4px;
+  margin-left: 38px;
+}
+
+/* ===== CONTAINER UTAMA ===== */
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* ===== TAB NAVIGASI ===== */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: white;
+  border-radius: 12px 12px 0 0;
+  padding: 8px 8px 0;
+  border: 1px solid #dde3eb;
+  border-bottom: none;
+}
+
+.tab {
+  padding: 10px 22px;
+  border: none;
+  background: #f0f2f5;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  background: #e0e8f5;
+  color: #1e3a5f;
+}
+
+/* Tab yang sedang aktif */
+.tab.active {
+  background: #1e3a5f;
+  color: white;
+}
+
+/* ===== KONTEN TAB ===== */
+.tab-content {
+  display: none; /* Sembunyikan semua tab */
+  background: white;
+  border: 1px solid #dde3eb;
+  border-radius: 0 12px 12px 12px;
+  padding: 24px;
+}
+
+.tab-content.aktif {
+  display: block; /* Tampilkan hanya tab aktif */
+}
+
+/* ===== CARD ===== */
+.card {
+  background: white;
+  border: 1px solid #dde3eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e3a5f;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8f0fa;
+}
+
+/* ===== SECTION DALAM FORM ===== */
+.form-section {
+  margin-bottom: 24px;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 3px solid #2d6a9f;
+}
+
+/* ===== GRID FORM — 2 KOLOM ===== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 kolom sama lebar */
+  gap: 16px;
+}
+
+/* Elemen yang perlu lebar penuh */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== GRUP INPUT (label + input) ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Tanda bintang untuk field wajib */
+.wajib {
+  color: #e74c3c;
+}
+
+/* ===== INPUT, SELECT, TEXTAREA ===== */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #dde3eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background: #fafbfd;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+/* Efek saat input difokus */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2d6a9f;
+  box-shadow: 0 0 0 3px rgba(45,106,159,0.12);
+  background: rgb(237, 234, 234);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.hint {
+  font-size: 11px;
+  color: #999;
+}
+
+/* ===== TOMBOL ===== */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn {
+  padding: 11px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-simpan {
+  background: #1e3a5f;
+  color: white;
+}
+
+.btn-simpan:hover {
+  background: #2d6a9f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30,58,95,0.3);
+}
+
+.btn-batal {
+  background: #f0f2f5;
+  color: #555;
+  border: 1px solid #dde3eb;
+}
+
+.btn-batal:hover {
+  background: #e0e8f5;
+}
+
+.btn-edit {
+  background: #e8f4fd;
+  color: #2d6a9f;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.btn-edit:hover {
+  background: #2d6a9f;
+  color: white;
+}
+
+.btn-hapus {
+  background: #fdecea;
+  color: #c0392b;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.btn-hapus:hover {
+  background: #c0392b;
+  color: white;
+}
+
+/* ===== TOOLBAR (Pencarian & Filter) ===== */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.search-box input {
+  padding-left: 38px;
+}
+
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-group select {
+  padding: 10px 12px;
+  width: auto;
+  font-size: 13px;
+}
+
+.info-jumlah {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+/* ===== TABEL ===== */
+.tabel-wrapper {
+  overflow-x: auto; /* Gulir horizontal di layar kecil */
+  border-radius: 10px;
+  border: 1px solid #dde3eb;
+}
+
+.tabel-karyawan {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabel-karyawan thead {
+  background: #1e3a5f;
+  color: white;
+}
+
+.tabel-karyawan th {
+  padding: 13px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tabel-karyawan td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef1f5;
+  vertical-align: middle;
+}
+
+/* Warna baris berganti-ganti */
+.tabel-karyawan tbody tr:nth-child(even) {
+  background: #f8fafd;
+}
+
+.tabel-karyawan tbody tr:hover {
+  background: #eef4fc;
+}
+
+/* ===== BADGE STATUS ===== */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-aktif {
+  background: #eafaf1;
+  color: #1e8449;
+  border: 1px solid #a9dfbf;
+}
+
+.badge-nonaktif {
+  background: #fdecea;
+  color: #c0392b;
+  border: 1px solid #f5b7b1;
+}
+
+.badge-cuti {
+  background: #fef9e7;
+  color: #b7770d;
+  border: 1px solid #f9e79f;
+}
+
+/* ===== BADGE DIVISI ===== */
+.badge-divisi {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.divisi-Teknologi   { background: #eaf3fb; color: #1a6fa8; }
+.divisi-Keuangan    { background: #eafaf1; color: #1e8449; }
+.divisi-HRD         { background: #f4ecfb; color: #7d3c98; }
+.divisi-Pemasaran   { background: #fdf2e9; color: #ca6f1e; }
+.divisi-Operasional { background: #fefde7; color: #b7860b; }
+.divisi-Legal       { background: #f2f3f4; color: #555; }
+
+/* ===== DATA KOSONG ===== */
+.data-kosong {
+  text-align: center;
+  padding: 60px 20px;
+  color: #aaa;
+}
+
+.data-kosong p {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+/* ===== STATISTIK ===== */
+.statistik-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.stat-kartu {
+  background: white;
+  border: 1px solid #dde3eb;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  border-top: 4px solid #2d6a9f;
+}
+
+.stat-kartu.hijau { border-top-color: #1e8449; }
+.stat-kartu.kuning { border-top-color: #b7770d; }
+.stat-kartu.merah  { border-top-color: #c0392b; }
+
+.stat-angka {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e3a5f;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+}
+
+/* ===== GRAFIK BATANG ===== */
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bar-label {
+  width: 100px;
+  font-size: 13px;
+  color: #555;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  background: #f0f2f5;
+  border-radius: 6px;
+  height: 28px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  min-width: 30px;
+  transition: width 0.6s ease;
+}
+
+/* ===== NOTIFIKASI TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #1e3a5f;
+  color: white;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 9999;
+  pointer-events: none;
+  max-width: 300px;
+}
+
+.toast.tampil {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.sukses { background: #1e8449; }
+.toast.error  { background: #c0392b; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* sama dengan top:0 right:0 bottom:0 left:0 */
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modal-box h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #c0392b;
+}
+
+.modal-box p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ===== TOMBOL EXCEL ===== */
+.excel-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-export {
+  background: #1e8449;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.btn-export:hover {
+  background: #27ae60;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30,132,73,0.3);
+}
+
+.btn-import {
+  background: #2d6a9f;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-import:hover {
+  background: #3a80b5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45,106,159,0.3);
+}
+
+.excel-hint {
+  font-size: 12px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* ===== RESPONSIF — Layar kecil (HP) ===== */
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* 1 kolom di HP */
+  }
+
+  .statistik-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    flex-wrap: wrap;
+  }
+
+  .header-sub {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
